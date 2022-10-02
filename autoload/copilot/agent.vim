@@ -385,9 +385,9 @@ function! s:Command() abort
       return [v:null, node_version, 'Node.js version 12.x–17.x required but found ' . node_version]
     endif
   endif
-  let agent = s:root . '/copilot/dist/agent.js'
-  if !filereadable(agent)
-    let agent = get(g:, 'copilot_agent_command', '')
+  let agent = get(g:, 'copilot_agent_command', '')
+  if (empty(agent) || !filereadable(agent))
+    let agent = s:root . '/copilot/dist/agent.js'
     if !filereadable(agent)
       return [v:null, node_version, 'Could not find agent.js (bad install?)']
     endif
