@@ -417,7 +417,7 @@ function! copilot#agent#EditorInfo() abort
   endif
   let match = matchlist(proxy, '\C^\%([^:]\+://\)\=\%(\([^/:#]\+@\)\)\=\%(\([^/:#]\+\)\|\[\([[:xdigit:]:]\+\)\]\)\%(:\(\d\+\)\)\=\%(/\|$\)')
   if !empty(match)
-    let info.networkProxy = {'host': match[2] . match[3], 'port': empty(match[4]) ? 80 : match[4]}
+    let info.networkProxy = {'host': match[2] . match[3], 'port': empty(match[4]) ? 80 : str2nr(match[4])}
     if !empty(match[1])
       let info.networkProxy.username = s:UrlDecode(matchstr(match[1], '^[^:]*'))
       let info.networkProxy.password = s:UrlDecode(matchstr(match[1], ':\zs.*'))
